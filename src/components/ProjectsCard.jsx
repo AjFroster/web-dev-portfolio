@@ -1,0 +1,46 @@
+import { useState } from "react";
+import { FaGithubSquare } from "react-icons/fa";
+import { TbWorldWww } from "react-icons/tb";
+
+const ProjectsCard = ({ url, img, github, title, text }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const maxWords = 21;
+  const words = text.split(" ");
+
+  return (
+    <article className="bg-white rounded-lg shadow-md hover:shadow-xl duration-500">
+      <img
+        src={img}
+        alt={title}
+        className="w-full object-cover rounded-t-lg h-64"
+      ></img>
+      <div className="capitalize p-8">
+        <h2 className="text-xl tracking-wide font-medium">{title}</h2>
+        <p className="mt-4 text-slate-800 leading-loose">
+          {isExpanded
+            ? text
+            : words.slice(0, maxWords).join(" ") +
+              (words.length > maxWords ? " ..." : "")}
+          {words.length > maxWords && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-sky-700 hover:underline mt-2"
+            >
+              {isExpanded ? " Read Less" : " Read More"}
+            </button>
+          )}
+        </p>
+      </div>
+      <div className="mx-auto max-w-7xl px-8 py-4  mt-4 flex gap-x-4">
+        <a href={url}>
+          <TbWorldWww className="h-8 w-8 text-slate-500 hover:text-black duration-300" />
+        </a>
+        <a href={github}>
+          <FaGithubSquare className="h-8 w-8 text-slate-500 hover:text-black duration-300" />
+        </a>
+      </div>
+    </article>
+  );
+};
+
+export default ProjectsCard;
